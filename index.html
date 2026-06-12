@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Message For My Bestie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f7d6c8;
+            background-image: radial-gradient(#fff5f0 15%, transparent 16%), radial-gradient(#fff5f0 15%, transparent 16%);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            font-family: 'Caveat', cursive;
+            overflow: hidden;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .scene {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+            transform: rotate(-6deg);
+            cursor: pointer;
+            z-index: 10;
+            animation: floatEnvelope 3s ease-in-out infinite;
+        }
+
+        @keyframes floatEnvelope {
+            0% { transform: rotate(-6deg) translateY(0px); }
+            50% { transform: rotate(-4deg) translateY(-8px); }
+            100% { transform: rotate(-6deg) translateY(0px); }
+        }
+
+        .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+/* Top flap triangle */
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 160px solid transparent;
+    border-right: 160px solid transparent;
+    border-top: 110px solid #ffffff;
+    z-index: 16;
+}
+
+/* Bottom-left fold */
+.envelope-fold-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 200px solid #fde8e8;
+    border-top: 150px solid transparent;
+    z-index: 14;
+}
+
+/* Bottom-right fold */
+.envelope-fold-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-right: 200px solid #fde8e8;
+    border-top: 150px solid transparent;
+    z-index: 14;
+}
+        .envelope-hint {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            bottom: -35px;
+            left: 0;
+            font-size: 20px;
+            color: #de7387;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .cat-sticker {
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            top: 25px;
+            left: 75px;
+            z-index: 18 ;
+            object-fit: contain;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .paper {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 200px;
+            background-color: #fffdf0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+            background-size: 100% 32px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 40px 25px 25px 40px;
+            border-left: 2px solid #ffccd5;
+            box-sizing: border-box;
+            z-index: 1;
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -50%) scale(0.6) rotate(-10deg);
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .letter-content {
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 10px;
+            padding-right: 5px;
+        }
+
+        .letter-text {
+            font-size: 25px;
+            color: #2b2b2b;
+            line-height: 32px;
+            margin: 0;
+            padding-top: 4px;
+        }
+
+        .signature-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+            margin-top: auto;
+            padding-bottom: 8px;
+        }
+
+        .signature {
+            text-align: right;
+            font-size: 24px;
+            color: #ff758f;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .signature-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            display: inline-block;
+        }
+
+        .decorations {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .decorations img {
+            position: absolute;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+
+        .cat-left { width: 85px; height: 85px; bottom: 15px; left: 15px; transform: rotate(-5deg); }
+        .cat-right { width: 85px; height: 85px; bottom: 15px; right: 15px; transform: rotate(5deg); }
+        .cat-top-left { width: 75px; height: 75px; top: 15px; left: 15px; transform: rotate(12deg); }
+        .cat-top-right { width: 75px; height: 75px; top: 15px; right: 15px; transform: rotate(-12deg); }
+
+        .scene.open .envelope-wrapper {
+            transform: translateY(150px) scale(0.7) rotate(15deg);
+            opacity: 0;
+            pointer-events: none;
+            animation: none;
+        }
+
+        .scene.open .cat-sticker {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        .scene.open .paper {
+            opacity: 1;
+            pointer-events: auto;
+            top: 5vh;
+            left: 5vw;
+            width: 90vw;
+            height: 90vh;
+            z-index: 100;
+            transform: translate(0, 0) scale(1) rotate(-4deg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        }
+
+        .scene.open .decorations {
+            display: block;
+        }
+
+        @media (min-width: 600px) {
+            .scene.open .paper {
+                width: 450px;
+                height: 600px;
+                left: calc(50% - 225px);
+                top: calc(50% - 300px);
+                padding: 50px 40px 40px 50px;
+                transform: translate(0, 0) scale(1) rotate(-3deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scene" id="scene">
+        <div class="envelope-wrapper" id="envelope">
+            <div class="envelope-back"></div>
+            <div class="envelope-flap"></div>
+<div class="envelope-fold-left"></div>
+<div class="envelope-fold-right"></div>
+            <img src="letter1.png" alt="Cat holding letter" class="cat-sticker">
+            <div class="envelope-hint">Tap to open nameraaa 💌</div>
+        </div>
+
+        <div class="paper" id="paper">
+            <div class="letter-content">
+                <p class="letter-text">
+                    <br><br>
+                    Hey namiii,<br><br>
+                    I'm so sorry about earlier! I was literally just trying to take a snap to send to you while helping out with the code. Your chair is completely safe, and absolutely no one could ever replace my favorite person namera.<br><br>
+                    youu the oni one i luvvv n i would nevahhh leave you or replace you for anyone else. Work stuff is just work stuff at the end of the day, but our friendship means absolutely everything to meee and nothing comes before that. I honestly hate seeing you sad or quiet. It kills me to see you like this namiii, and it’s affecting me so much too. Do you really think I can just be happy or act normal when you're feeling down? noiii, I can’t at all. It hurts to see you upset, because your mood literally dictates mine. I just wanna see you happy always and forevahhh.. Let's please throw this silly misunderstanding out the window.<br><br>
+                    Promise to smile again? hehe snap me youuu nowww i wanna see yo smiling face okayyy? I’m here for you always, and I lub you so muchhh. you the best thing that’s ever happened to me, and I’m so grateful to have you in my life. Please don’t ever doubt that. I’m really sorry again, and I hope we can move past this soon. I miss you and I love youuuuuuuuuu!
+                </p>
+            </div>
+            
+            <div class="signature-wrapper">
+                <div class="signature">your cutu zaiddd</div>
+                <img src="flowers1.png" class="signature-img" alt="Flowers beside signature">
+            </div>
+            
+            <div class="decorations">
+                <img src="flower1.png" class="cat-left" alt="Cat decoration">
+                <img src="flowers1.png" class="cat-right" alt="Cat decoration">
+                <img src="tongue2.png" class="cat-top-left" alt="Cat decoration">
+                <img src="heart1.png" class="cat-top-right" alt="Cat decoration">
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="khatt.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const scene = document.getElementById('scene');
+        const envelope = document.getElementById('envelope');
+        const audio = document.getElementById('bgMusic');
+
+        envelope.addEventListener('click', () => {
+            scene.classList.add('open');
+            setTimeout(() => {
+                audio.play().catch(error => {
+                    console.log("Audio playback managed.");
+                });
+            }, 800);
+        });
+    </script>
+</body>
+</html>
